@@ -8,10 +8,8 @@ const Home = () => {
     const [categories, setCategories] = useState([]); // Wadah untuk Acara
     const [loading, setLoading] = useState(true);
 
-    // LOGIKA "DRILL-DOWN" UNTUK PELANGGAN
-    const [selectedCategory, setSelectedCategory] = useState(null); // Null = Tampil Acara, Isi = Tampil Tema
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
-    // 1. Cek status login
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -19,7 +17,6 @@ const Home = () => {
         }
     }, []);
 
-    // 2. Ambil data KATEGORI (Acara) dari Backend (Temanya otomatis kebawa dari Backend)
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -94,7 +91,6 @@ const Home = () => {
                 {loading ? (
                     <p className="text-center text-gray-500">Memuat data...</p>
                 ) : !selectedCategory ? (
-                    /* ==================== TAMPILAN 1: DAFTAR ACARA ==================== */
                     <>
                         <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">Pilih Acara Anda</h3>
 
@@ -130,7 +126,6 @@ const Home = () => {
                         )}
                     </>
                 ) : (
-                    /* ==================== TAMPILAN 2: DAFTAR TEMA (DALAM ACARA) ==================== */
                     <>
                         <div className="flex flex-col md:flex-row justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                             <h3 className="text-2xl font-bold text-gray-800">

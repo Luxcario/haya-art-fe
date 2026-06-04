@@ -71,7 +71,6 @@ const CatalogDetail = () => {
             if (isHiburanChecked) layananTambahanText += `• Include Hiburan & Musik\n`;
             if (!isMakeupChecked && !isHiburanChecked) layananTambahanText += `• Tanpa layanan tambahan\n`;
 
-            // 3. Payload tetap sama untuk dikirim ke Database
             const gabunganNote = `[Paket: ${lokasi} - Kelas ${kelas}] \n${formData.note}`;
             const payload = {
                 catalogId: catalog.id,

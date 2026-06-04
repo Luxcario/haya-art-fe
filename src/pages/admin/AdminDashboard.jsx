@@ -35,7 +35,7 @@ const AdminDashboard = () => {
     const handleStatusChange = async (id, newStatus) => {
         try {
             await api.put(`/booking/${id}/status`, { status: newStatus });
-            fetchBookings(); // Refresh tabel setelah berhasil
+            fetchBookings();
         } catch (error) {
             console.error(error);
             alert('Gagal mengubah status pesanan!');
@@ -60,8 +60,8 @@ const AdminDashboard = () => {
     const handleUpdateWA = async () => {
         try {
             await api.put('/setting', { adminPhone });
-            alert("✅ Nomer WA Admin telah terupdate!");
-            setIsEditingWA(false); // 👈 Tutup inputan setelah berhasil simpan
+            alert("Nomer WA Admin telah terupdate!");
+            setIsEditingWA(false);
         } catch (error) {
             console.error(error);
             alert("❌ Gagal mengupdate nomer");
@@ -71,7 +71,6 @@ const AdminDashboard = () => {
     return (
         <div className="min-h-screen bg-gray-100 p-8 font-sans">
             <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-
                 {/* Header Admin */}
                 <div className="bg-gray-800 p-6 text-white flex justify-between items-center">
                     <div>
@@ -83,7 +82,6 @@ const AdminDashboard = () => {
                             </div>
 
                             <div>
-                                {/* Jika TIDAK sedang mode edit, tampilkan teks biasa + tombol Edit */}
                                 {!isEditingWA ? (
                                     <div className="flex items-center gap-4 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
                                         <span className="font-bold text-lg text-gray-800 tracking-wide">
@@ -97,7 +95,6 @@ const AdminDashboard = () => {
                                         </button>
                                     </div>
                                 ) : (
-                                    /* Jika SEDANG mode edit, tampilkan form input + tombol Simpan/Batal */
                                     <div className="flex items-center gap-2 bg-amber-50 p-2 rounded-lg border border-amber-200">
                                         <span className="font-bold text-gray-500 pl-2">+</span>
                                         <input
@@ -155,7 +152,6 @@ const AdminDashboard = () => {
                             <tbody>
                                 {bookings.map((booking) => (
                                     <tr key={booking.id} className="border-b border-gray-100 hover:bg-gray-50 transition">
-
                                         {/* Tgl Masuk Baru */}
                                         <td className="p-4 text-sm text-gray-600">
                                             {new Date(booking.createdAt).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}
@@ -221,7 +217,6 @@ const AdminDashboard = () => {
 
             </div>
 
-            {/* ===================== MODAL DETAIL PESANAN ===================== */}
             {showDetail && selectedBooking && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in">

@@ -7,7 +7,6 @@ const Booking = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
-    // Menangkap data katalog yang dikirim dari tombol "Pesan" di Home
     const catalog = location.state?.catalog;
 
     const [formData, setFormData] = useState({
@@ -26,7 +25,6 @@ const Booking = () => {
             setUser(JSON.parse(storedUser));
         }
 
-        // Kalau user iseng ngetik URL /booking manual tanpa milih barang, lempar ke Home
         if (!catalog) {
             navigate('/');
         }
@@ -59,7 +57,6 @@ const Booking = () => {
         }
     };
 
-    // Mencegah error kalau halaman dimuat sebelum data siap
     if (!catalog || !user) return null;
 
     return (
