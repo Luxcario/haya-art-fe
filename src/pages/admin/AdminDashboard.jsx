@@ -77,7 +77,7 @@ const AdminDashboard = () => {
                         <h1 className="text-2xl font-bold">Dashboard Admin</h1>
                         <div className="mb-6 bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
-                                <h3 className="font-bold text-gray-800 flex items-center gap-2">📞 Nomor WhatsApp Admin</h3>
+                                <h3 className="font-bold text-gray-800 flex items-center gap-2">Nomor WhatsApp Admin</h3>
                                 <p className="text-xs text-gray-500 mt-1">Nomor ini digunakan untuk menerima pesanan langsung dari pelanggan.</p>
                             </div>
 
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
                                             onClick={() => setIsEditingWA(true)}
                                             className="bg-amber-100 text-amber-700 px-4 py-1.5 rounded-md text-sm font-bold hover:bg-amber-200 transition"
                                         >
-                                            ✏️ Edit
+                                            Edit
                                         </button>
                                     </div>
                                 ) : (
@@ -122,12 +122,12 @@ const AdminDashboard = () => {
                         </div>
                         <div className="mt-2 flex gap-4">
                             <Link to="/admin-catalog" className="bg-amber-600 hover:bg-amber-700 px-3 py-1 rounded text-sm font-medium transition shadow-sm">
-                                📦 Kelola Katalog Acara
+                                Kelola Katalog Acara
                             </Link>
                         </div>
                     </div>
                     <button onClick={() => navigate('/')} className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm transition border border-gray-600">
-                        🏠 Kembali ke Web
+                        Kembali ke Web
                     </button>
                 </div>
 
@@ -189,12 +189,12 @@ const AdminDashboard = () => {
                                                 ${booking.status === 'PAID' ? 'bg-green-100 text-green-700 border-green-300' : ''}
                                                 ${booking.status === 'COMPLETED' ? 'bg-purple-100 text-purple-700 border-purple-300' : ''}
                                                 ${booking.status === 'CANCELLED' ? 'bg-red-100 text-red-700 border-red-300' : ''}`}>
-                                                <option value="PENDING">🕒 PENDING</option>
-                                                <option value="VERIFIED">✅ VERIFIED</option>
-                                                <option value="WAITING_PAYMENT">💳 MINTA DP</option>
-                                                <option value="PAID">💰 DIBAYAR</option>
-                                                <option value="COMPLETED">🎉 SELESAI</option>
-                                                <option value="CANCELLED">❌ BATAL</option>
+                                                <option value="PENDING">PENDING</option>
+                                                <option value="VERIFIED">VERIFIED</option>
+                                                <option value="WAITING_PAYMENT">MINTA DP</option>
+                                                <option value="PAID">DIBAYAR</option>
+                                                <option value="COMPLETED">SELESAI</option>
+                                                <option value="CANCELLED">BATAL</option>
                                             </select>
                                         </td>
 
@@ -204,7 +204,7 @@ const AdminDashboard = () => {
                                                 onClick={() => handleViewDetail(booking)}
                                                 className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-md hover:bg-amber-100 hover:text-amber-700 font-bold transition text-xs border border-gray-200"
                                             >
-                                                👁️ Detail
+                                                Detail
                                             </button>
                                         </td>
 
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in">
                         <div className="bg-amber-600 p-5 text-white flex justify-between items-center">
-                            <h3 className="text-lg font-bold">📄 Detail Pesanan</h3>
+                            <h3 className="text-lg font-bold">Detail Pesanan</h3>
                             <button onClick={() => setShowDetail(false)} className="text-2xl font-bold hover:text-gray-200">&times;</button>
                         </div>
 

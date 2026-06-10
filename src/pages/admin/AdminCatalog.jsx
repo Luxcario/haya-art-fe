@@ -47,7 +47,7 @@ const AdminCatalog = () => {
     };
 
     const handleHapusAcara = async (id) => {
-        if (!window.confirm("💥 FORCE DELETE: Yakin ingin menghapus acara ini beserta isinya?")) return;
+        if (!window.confirm("FORCE DELETE: Yakin ingin menghapus acara ini beserta isinya?")) return;
         try {
             await removeAcara(id);
             setAcaraAktif(null);
@@ -105,10 +105,10 @@ const AdminCatalog = () => {
 
             if (editTemaId) {
                 await updateTema(editTemaId, payload);
-                alert("✅ Tema & Paket berhasil diperbarui!");
+                alert("Tema & Paket berhasil diperbarui!");
             } else {
                 await createTema(payload);
-                alert("✅ Tema & Paket baru berhasil ditambahkan!");
+                alert("Tema & Paket baru berhasil ditambahkan!");
             }
 
             setShowFormTema(false);
@@ -136,7 +136,7 @@ const AdminCatalog = () => {
                 <div className="bg-gray-800 p-6 text-white flex justify-between items-center">
                     <div>
                         <h1 className="text-2xl font-bold">
-                            {acaraAktif ? `📁 Tema Acara: ${acaraAktif.name}` : '📚 Kelola Katalog Acara'}
+                            {acaraAktif ? `Tema Acara: ${acaraAktif.name}` : 'Kelola Katalog Acara'}
                         </h1>
                         <div className="text-sm text-gray-400 mt-2 flex gap-4">
                             {acaraAktif ? (
