@@ -8,7 +8,7 @@ const FormAcara = ({ show, onClose, formData, setFormData, onSubmit }) => {
                 {/* Header Form */}
                 <div className="bg-gray-900 p-5 flex justify-between items-center">
                     <h3 className="text-white text-lg font-bold flex items-center gap-2">
-                        ✨ Tambah Acara (Kategori)
+                        Tambah Acara (Kategori)
                     </h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-white transition text-xl font-bold">&times;</button>
                 </div>

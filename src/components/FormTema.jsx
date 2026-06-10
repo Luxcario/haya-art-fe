@@ -27,7 +27,7 @@ const FormTema = ({ show, onClose, formData, setFormData, onSubmit, isEdit, nama
 
                 <div className="bg-blue-600 p-5 flex justify-between items-center">
                     <h3 className="text-white text-lg font-bold flex items-center gap-2">
-                        {isEdit ? '✏️ Edit Tema Dekorasi' : `✨ Tambah Tema untuk ${namaAcara}`}
+                        {isEdit ? 'Edit Tema Dekorasi' : `Tambah Tema untuk ${namaAcara}`}
                     </h3>
                     <button onClick={onClose} className="text-blue-200 hover:text-white transition text-xl font-bold">&times;</button>
                 </div>

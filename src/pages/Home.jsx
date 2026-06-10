@@ -129,7 +129,7 @@ const Home = () => {
                     <>
                         <div className="flex flex-col md:flex-row justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                             <h3 className="text-2xl font-bold text-gray-800">
-                                ✨ Tema Dekorasi: <span className="text-amber-600">{selectedCategory.name}</span>
+                                Tema Dekorasi: <span className="text-amber-600">{selectedCategory.name}</span>
                             </h3>
                             <button
                                 onClick={() => setSelectedCategory(null)}

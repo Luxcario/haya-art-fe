@@ -187,7 +187,7 @@ const CatalogDetail = () => {
                             )}
 
                             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">✨ Yang Pasti Kamu Dapatkan (Fasilitas Umum)</h3>
+                                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">Yang Pasti Kamu Dapatkan (Fasilitas Umum)</h3>
                                 {catalog.fasilitas ? (
                                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-600">
                                         {catalog.fasilitas.split(',').map((item, index) => (

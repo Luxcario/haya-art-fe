@@ -135,7 +135,7 @@ const AdminCategory = () => {
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                         <div className="bg-white rounded-lg shadow-2xl w-full max-w-md overflow-hidden">
                             <div className="bg-amber-600 p-4 text-white font-bold flex justify-between">
-                                <h3>✨ Tambah Kategori Acara</h3>
+                                <h3>Tambah Kategori Acara</h3>
                                 <button onClick={() => setShowForm(false)} className="hover:text-gray-200">X</button>
                             </div>
 
