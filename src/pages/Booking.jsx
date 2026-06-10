@@ -40,8 +40,8 @@ const Booking = () => {
 
         try {
             await api.post('/booking', {
-                userId: user.id,       // ID yang pesan
-                catalogId: catalog.id, // ID barang yang dipesan
+                userId: user.id,
+                catalogId: catalog.id,
                 eventDate: formData.eventDate,
                 location: formData.location,
                 note: formData.note

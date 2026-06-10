@@ -108,7 +108,7 @@ const CatalogDetail = () => {
 
             const waUrl = `https://wa.me/${activeAdminPhone}?text=${encodeURIComponent(waMessage)}`;
 
-            alert("🎉 Pesanan berhasil dicatat! Mengalihkan ke WhatsApp...");
+            alert("Pesanan berhasil dicatat! Mengalihkan ke WhatsApp...");
 
             window.location.href = waUrl;
 
@@ -173,13 +173,13 @@ const CatalogDetail = () => {
                     {step === 3 && (
                         <div className="animate-fade-in space-y-6">
                             <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl text-amber-800">
-                                <p className="font-bold">✅ Pilihan Anda: Dekorasi {lokasi} - Paket {kelas}</p>
+                                <p className="font-bold"> Pilihan Anda: Dekorasi {lokasi} - Paket {kelas}</p>
                                 <p className="text-sm opacity-90">Berikut adalah fasilitas dan layanan tambahan untuk paket yang Anda pilih.</p>
                             </div>
 
                             {paketAktif && paketAktif.features && (
                                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 bg-gradient-to-r from-blue-50/30 to-white">
-                                    <h3 className="text-xl font-bold text-blue-800 mb-3 flex items-center gap-2">🎁 Fasilitas Khusus Paket {kelas}</h3>
+                                    <h3 className="text-xl font-bold text-blue-800 mb-3 flex items-center gap-2"> Fasilitas Khusus Paket {kelas}</h3>
                                     <p className="text-gray-700 text-sm whitespace-pre-line leading-relaxed bg-white p-4 rounded-xl border border-blue-100">
                                         {paketAktif.features}
                                     </p>
@@ -264,14 +264,14 @@ const CatalogDetail = () => {
                                         onClick={() => { setLokasi('Rumahan'); setStep(2); }}
                                         className="w-full text-left p-4 border-2 border-gray-200 hover:border-amber-500 hover:bg-amber-50 rounded-xl transition group"
                                     >
-                                        <div className="font-bold text-lg text-gray-800 group-hover:text-amber-700">🏠 Acara Rumahan</div>
+                                        <div className="font-bold text-lg text-gray-800 group-hover:text-amber-700">Acara Rumahan</div>
                                         <div className="text-sm text-gray-500">Desain disesuaikan dengan luas area rumah.</div>
                                     </button>
                                     <button
                                         onClick={() => { setLokasi('Gedung'); setStep(2); }}
                                         className="w-full text-left p-4 border-2 border-gray-200 hover:border-amber-500 hover:bg-amber-50 rounded-xl transition group"
                                     >
-                                        <div className="font-bold text-lg text-gray-800 group-hover:text-amber-700">🏢 Acara Gedung</div>
+                                        <div className="font-bold text-lg text-gray-800 group-hover:text-amber-700">Acara Gedung</div>
                                         <div className="text-sm text-gray-500">Lebih megah untuk menyiasati ruangan besar.</div>
                                     </button>
                                 </div>
@@ -286,19 +286,19 @@ const CatalogDetail = () => {
                                 <div className="space-y-3">
                                     <button onClick={() => { setKelas('Bronze'); setStep(3); }} className="w-full text-left p-4 border-2 border-gray-200 hover:border-amber-500 hover:bg-amber-50 rounded-xl transition flex justify-between items-center">
                                         <div>
-                                            <div className="font-bold text-gray-800">🥉 Paket Bronze</div>
+                                            <div className="font-bold text-gray-800">Paket Bronze</div>
                                             <div className="text-xs text-gray-500">Standar & Elegan</div>
                                         </div>
                                     </button>
                                     <button onClick={() => { setKelas('Silver'); setStep(3); }} className="w-full text-left p-4 border-2 border-gray-200 hover:border-amber-500 hover:bg-amber-50 rounded-xl transition flex justify-between items-center">
                                         <div>
-                                            <div className="font-bold text-gray-800">🥈 Paket Silver</div>
+                                            <div className="font-bold text-gray-800">Paket Silver</div>
                                             <div className="text-xs text-gray-500">Ekstra Bunga Segar</div>
                                         </div>
                                     </button>
                                     <button onClick={() => { setKelas('Gold'); setStep(3); }} className="w-full text-left p-4 border-2 border-gray-200 hover:border-amber-500 hover:bg-amber-50 rounded-xl transition flex justify-between items-center">
                                         <div>
-                                            <div className="font-bold text-gray-800">🥇 Paket Gold</div>
+                                            <div className="font-bold text-gray-800">Paket Gold</div>
                                             <div className="text-xs text-gray-500">Premium & Mewah</div>
                                         </div>
                                     </button>
