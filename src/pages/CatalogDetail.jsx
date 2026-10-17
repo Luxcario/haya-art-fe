@@ -351,10 +351,18 @@ const CatalogDetail = () => {
                                             placeholderText="Pilih tanggal acara"
                                             required
                                             dayClassName={(date) => {
-                                                // Cek apakah tanggal di kalender cocok dengan salah satu tanggal di bookedDates
-                                                const isBooked = bookedDates.some(
-                                                    (bDate) => bDate.toDateString() === date.toDateString()
-                                                );
+                                                const year = date.getFullYear();
+                                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                                const day = String(date.getDate()).padStart(2, '0');
+                                                const formattedDateStr = `${year}-${month}-${day}`;
+
+                                                const isBooked = bookedDates.some((bDate) => {
+                                                    const bYear = bDate.getFullYear();
+                                                    const bMonth = String(bDate.getMonth() + 1).padStart(2, '0');
+                                                    const bDay = String(bDate.getDate()).padStart(2, '0');
+                                                    return `${bYear}-${bMonth}-${bDay}` === formattedDateStr;
+                                                });
+
                                                 return isBooked ? 'tanggal-mati' : undefined;
                                             }}
                                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer"

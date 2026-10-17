@@ -2,25 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Styling khusus untuk tanggal yang sudah di-booking */
+/* Styling lengkap untuk tanggal yang ter-booking / mati */
 .react-datepicker__day.tanggal-mati,
-.react-datepicker__day--disabled {
+.react-datepicker__day--disabled,
+.react-datepicker__day--excluded {
     background-color: #fecdd3 !important;
-    /* Warna merah muda / abu gelap lembut */
+    /* Background merah muda pudar */
     color: #9f1239 !important;
-    /* Warna teks merah tua */
+    /* Teks merah gelap */
     text-decoration: line-through !important;
     /* Efek dicoret */
     cursor: not-allowed !important;
-    /* Kursor simbol dilarang */
+    /* Kursor dilarang */
     pointer-events: none !important;
-    /* BENAR-BENAR mematikan klik mouse */
+    /* Mematikan klik mouse total */
     opacity: 0.6 !important;
     border-radius: 0.375rem !important;
 }
 
+/* Matikan efek hover pada tanggal mati */
 .react-datepicker__day.tanggal-mati:hover,
-.react-datepicker__day--disabled:hover {
+.react-datepicker__day--disabled:hover,
+.react-datepicker__day--excluded:hover {
     background-color: #fecdd3 !important;
+    color: #9f1239 !important;
     cursor: not-allowed !important;
 }
