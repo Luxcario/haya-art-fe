@@ -49,7 +49,7 @@ const FormTema = ({ show, onClose, formData, setFormData, onSubmit, isEdit, nama
                     {/* Section Dinamis: Variasi Harga & Detail Paket */}
                     <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
                         <label className="block text-sm font-bold text-blue-800 mb-3 flex items-center gap-2">
-                            💰 Daftar Variasi Paket & Harga
+                            Daftar Variasi Paket & Harga
                         </label>
 
                         <div className="space-y-4">
@@ -202,7 +202,7 @@ const FormTema = ({ show, onClose, formData, setFormData, onSubmit, isEdit, nama
                             type="submit"
                             className="w-2/3 bg-blue-600 text-white py-2.5 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg active:scale-95"
                         >
-                            {isEdit ? '💾 Simpan Perubahan' : '🚀 Simpan Tema & Paket'}
+                            {isEdit ? 'Simpan Perubahan' : 'Simpan Tema & Paket'}
                         </button>
                     </div>
                 </form>

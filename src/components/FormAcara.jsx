@@ -27,9 +27,9 @@ const FormAcara = ({ show, onClose, formData, setFormData, onSubmit }) => {
                         />
                     </div>
 
-                    {/* 👇 INI BAGIAN YANG SUDAH BERUBAH JADI UPLOAD FILE 👇 */}
+                    {/* Upload Gambar*/}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Upload Foto Cover (Opsional)</label>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Upload Foto Cover</label>
                         <input
                             type="file"
                             accept="image/*"
@@ -38,7 +38,7 @@ const FormAcara = ({ show, onClose, formData, setFormData, onSubmit }) => {
                         />
                     </div>
 
-                    {/* Tombol Aksi */}
+                    {/* btn*/}
                     <div className="flex gap-3 pt-4 border-t border-gray-100">
                         <button
                             type="button"
