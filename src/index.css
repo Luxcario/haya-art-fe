@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 1. Hilangkan background biru bawaan untuk Hari Ini & Keyboard Focus */
+.react-datepicker__day--today,
+.react-datepicker__day--keyboard-selected {
+    background-color: transparent !important;
+    color: #1f2937 !important;
+    /* Warna teks default (gelap netral) */
+    font-weight: bold !important;
+    border: none !important;
+}
+
+/* 2. Warna saat user AKTIF MEMILIH/MENGLIK tanggal (Warna Amber Haya Art) */
+.react-datepicker__day--selected,
+.react-datepicker__day--selected:hover {
+    background-color: #d97706 !important;
+    /* Amber-600 */
+    color: #ffffff !important;
+    font-weight: bold !important;
+    border-radius: 0.375rem !important;
+}
+
+/* 3. 🔴 HANYA TANGGAL YANG DIPESAN YANG BERWARNA MERAH & TERKUNCI */
 .react-datepicker__day.tanggal-mati,
 .react-datepicker__day.tanggal-mati:hover,
 .react-datepicker__day--disabled,
@@ -9,7 +30,7 @@
 .react-datepicker__day--excluded,
 .react-datepicker__day--excluded:hover {
     background-color: #fecdd3 !important;
-    /* Background merah/pink pudar */
+    /* Pink/Merah pudar */
     color: #9f1239 !important;
     /* Teks merah tua */
     text-decoration: line-through !important;
@@ -19,9 +40,10 @@
     pointer-events: none !important;
     /* Matikan klik mouse */
     opacity: 0.6 !important;
+    border-radius: 0.375rem !important;
 }
 
-/* Kunci semua elemen teks/span turunan di dalam tanggal */
+/* Kunci semua elemen teks di dalam tanggal mati */
 .react-datepicker__day.tanggal-mati *,
 .react-datepicker__day--disabled *,
 .react-datepicker__day--excluded * {
