@@ -33,9 +33,13 @@ const CatalogDetail = () => {
                 const response = await api.get(`/catalog/${id}`);
                 setCatalog(response.data);
                 if (response.data.imageUrl) setMainImage(response.data.imageUrl);
+
                 const bookedRes = await api.get('/booking/booked-dates');
-                const disabledDates = bookedRes.data.map(dateStr => new Date(dateStr));
-                setBookedDates(disabledDates);
+
+                const disabledDates = bookedRes.data.map(dateStr => {
+                    const [year, month, day] = dateStr.split('-');
+                    return new Date(Number(year), Number(month) - 1, Number(day), 12, 0, 0);
+                });
             } catch (error) {
                 console.error("Gagal mengambil detail:", error);
             } finally {
@@ -327,11 +331,16 @@ const CatalogDetail = () => {
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-1">Tanggal Acara</label>
                                         <DatePicker
-                                            selected={formData.eventDate ? new Date(formData.eventDate) : null}
+                                            selected={formData.eventDate ? (() => {
+                                                const [y, m, d] = formData.eventDate.split('-');
+                                                return new Date(Number(y), Number(m) - 1, Number(d), 12, 0, 0);
+                                            })() : null}
                                             onChange={(date) => {
                                                 if (date) {
-                                                    const formattedDate = date.toISOString().split('T')[0];
-                                                    setFormData({ ...formData, eventDate: formattedDate });
+                                                    const year = date.getFullYear();
+                                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                                    const day = String(date.getDate()).padStart(2, '0');
+                                                    setFormData({ ...formData, eventDate: `${year}-${month}-${day}` });
                                                 } else {
                                                     setFormData({ ...formData, eventDate: '' });
                                                 }
