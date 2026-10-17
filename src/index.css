@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.react-datepicker__day--disabled,
+.react-datepicker__day--excluded {
+    color: #0000 !important;
+    background-color: #000 !important;
+    text-decoration: line-through;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    opacity: 0.5;
+}
