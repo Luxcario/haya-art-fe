@@ -350,6 +350,13 @@ const CatalogDetail = () => {
                                             dateFormat="yyyy-MM-dd"
                                             placeholderText="Pilih tanggal acara"
                                             required
+                                            dayClassName={(date) => {
+                                                // Cek apakah tanggal di kalender cocok dengan salah satu tanggal di bookedDates
+                                                const isBooked = bookedDates.some(
+                                                    (bDate) => bDate.toDateString() === date.toDateString()
+                                                );
+                                                return isBooked ? 'tanggal-mati' : undefined;
+                                            }}
                                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer"
                                         />
                                     </div>
