@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import api from '../api/axios';
 
 const CatalogDetail = () => {
@@ -7,6 +9,7 @@ const CatalogDetail = () => {
     const navigate = useNavigate();
     const [catalog, setCatalog] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [bookedDates, setBookedDates] = useState([]);
 
     // Multi-Step Form
     const [step, setStep] = useState(1);
@@ -30,6 +33,9 @@ const CatalogDetail = () => {
                 const response = await api.get(`/catalog/${id}`);
                 setCatalog(response.data);
                 if (response.data.imageUrl) setMainImage(response.data.imageUrl);
+                const bookedRes = await api.get('/booking/booked-dates');
+                const disabledDates = bookedRes.data.map(dateStr => new Date(dateStr));
+                setBookedDates(disabledDates);
             } catch (error) {
                 console.error("Gagal mengambil detail:", error);
             } finally {
@@ -320,7 +326,23 @@ const CatalogDetail = () => {
                                 <form onSubmit={handlePesan} className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-1">Tanggal Acara</label>
-                                        <input type="date" required value={formData.eventDate} onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })} className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-amber-500 outline-none" />
+                                        <DatePicker
+                                            selected={formData.eventDate ? new Date(formData.eventDate) : null}
+                                            onChange={(date) => {
+                                                if (date) {
+                                                    const formattedDate = date.toISOString().split('T')[0];
+                                                    setFormData({ ...formData, eventDate: formattedDate });
+                                                } else {
+                                                    setFormData({ ...formData, eventDate: '' });
+                                                }
+                                            }}
+                                            excludeDates={bookedDates}
+                                            minDate={new Date()}
+                                            dateFormat="yyyy-MM-dd"
+                                            placeholderText="Pilih tanggal acara"
+                                            required
+                                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer"
+                                        />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-1">Lokasi Lengkap</label>
