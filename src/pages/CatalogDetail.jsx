@@ -24,6 +24,7 @@ const CatalogDetail = () => {
     const [isMakeupChecked, setIsMakeupChecked] = useState(false);
     const [isHiburanChecked, setIsHiburanChecked] = useState(false);
 
+    // 2. Fetch Data
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) setUser(JSON.parse(storedUser));
@@ -34,12 +35,9 @@ const CatalogDetail = () => {
                 setCatalog(response.data);
                 if (response.data.imageUrl) setMainImage(response.data.imageUrl);
 
+                // Ambil array string tanggal ["YYYY-MM-DD", ...]
                 const bookedRes = await api.get('/booking/booked-dates');
-
-                const disabledDates = bookedRes.data.map(dateStr => {
-                    const [year, month, day] = dateStr.split('-');
-                    return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
-                }); setBookedDates(disabledDates);
+                setBookedDates(bookedRes.data || []);
             } catch (error) {
                 console.error("Gagal mengambil detail:", error);
             } finally {
@@ -49,6 +47,10 @@ const CatalogDetail = () => {
         fetchDetail();
     }, [id]);
 
+    const disabledDateObjects = bookedDates.map(dateStr => {
+        const [year, month, day] = dateStr.split('-');
+        return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
+    });
     const paketAktif = catalog?.prices?.find(
         (p) => p.lokasi === lokasi && p.paket === kelas
     );
@@ -345,8 +347,8 @@ const CatalogDetail = () => {
                                                     setFormData({ ...formData, eventDate: '' });
                                                 }
                                             }}
-                                            excludeDates={bookedDates} // Murni mengunci tanggal, bulan, dan tahun spesifik
-                                            minDate={new Date()}       // Mencegah tanggal lalu
+                                            excludeDates={disabledDateObjects}
+                                            minDate={new Date()}
                                             dateFormat="yyyy-MM-dd"
                                             placeholderText="Pilih tanggal acara"
                                             required
@@ -356,14 +358,7 @@ const CatalogDetail = () => {
                                                 const day = String(date.getDate()).padStart(2, '0');
                                                 const formattedDateStr = `${year}-${month}-${day}`;
 
-                                                const isBooked = bookedDates.some((bDate) => {
-                                                    const bYear = bDate.getFullYear();
-                                                    const bMonth = String(bDate.getMonth() + 1).padStart(2, '0');
-                                                    const bDay = String(bDate.getDate()).padStart(2, '0');
-                                                    return `${bYear}-${bMonth}-${bDay}` === formattedDateStr;
-                                                });
-
-                                                return isBooked ? 'tanggal-mati' : undefined;
+                                                return bookedDates.includes(formattedDateStr) ? 'tanggal-mati' : undefined;
                                             }}
                                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer"
                                         />
