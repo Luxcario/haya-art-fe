@@ -38,8 +38,8 @@ const CatalogDetail = () => {
 
                 const disabledDates = bookedRes.data.map(dateStr => {
                     const [year, month, day] = dateStr.split('-');
-                    return new Date(Number(year), Number(month) - 1, Number(day), 12, 0, 0);
-                });
+                    return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
+                }); setBookedDates(disabledDates);
             } catch (error) {
                 console.error("Gagal mengambil detail:", error);
             } finally {
@@ -333,7 +333,7 @@ const CatalogDetail = () => {
                                         <DatePicker
                                             selected={formData.eventDate ? (() => {
                                                 const [y, m, d] = formData.eventDate.split('-');
-                                                return new Date(Number(y), Number(m) - 1, Number(d), 12, 0, 0);
+                                                return new Date(Number(y), Number(m) - 1, Number(d), 0, 0, 0, 0);
                                             })() : null}
                                             onChange={(date) => {
                                                 if (date) {
@@ -345,8 +345,8 @@ const CatalogDetail = () => {
                                                     setFormData({ ...formData, eventDate: '' });
                                                 }
                                             }}
-                                            excludeDates={bookedDates}
-                                            minDate={new Date()}
+                                            excludeDates={bookedDates} // Murni mengunci tanggal, bulan, dan tahun spesifik
+                                            minDate={new Date()}       // Mencegah tanggal lalu
                                             dateFormat="yyyy-MM-dd"
                                             placeholderText="Pilih tanggal acara"
                                             required
