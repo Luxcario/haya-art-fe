@@ -35,7 +35,6 @@ const CatalogDetail = () => {
                 setCatalog(response.data);
                 if (response.data.imageUrl) setMainImage(response.data.imageUrl);
 
-                // Ambil array string tanggal ["YYYY-MM-DD", ...]
                 const bookedRes = await api.get('/booking/booked-dates');
                 setBookedDates(bookedRes.data || []);
             } catch (error) {
