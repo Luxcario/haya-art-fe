@@ -8,6 +8,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import MyOrders from './pages/MyOrders';
 import AdminCatalog from './pages/admin/AdminCatalog';
 import AdminCategory from './pages/admin/AdminCategory';
+import VerifyEmail from './pages/verify-email';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="/theme/:id" element={<CatalogDetail />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/admin" element={<AdminDashboard />} />

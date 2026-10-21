@@ -20,13 +20,17 @@ const Register = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            // Kirim data ke backend
-            await api.post('/auth/register', formData);
-            alert('Registrasi Berhasil! Silakan Login.');
-            navigate('/login'); // Pindah ke halaman login
+            // Kirim data registrasi ke endpoint Backend
+            const res = await api.post('/auth/register', formData);
+
+            // Tampilkan pesan sukses berisi instruksi verifikasi email
+            alert(res.data?.message || 'Registrasi Berhasil! Silakan cek inbox/spam email Anda untuk melakukan verifikasi.');
+
+            // Alihkan pengguna ke halaman login
+            navigate('/login');
         } catch (err) {
             console.error(err);
-            alert(err.response?.data?.message || 'Gagal mendaftar');
+            alert(err.response?.data?.message || 'Gagal mendaftar. Silakan coba lagi.');
         } finally {
             setLoading(false);
         }
@@ -42,6 +46,7 @@ const Register = () => {
                         <input
                             type="text"
                             name="name"
+                            value={formData.name}
                             onChange={handleChange}
                             className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                             required
@@ -53,6 +58,7 @@ const Register = () => {
                         <input
                             type="email"
                             name="email"
+                            value={formData.email}
                             onChange={handleChange}
                             className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                             required
@@ -64,6 +70,7 @@ const Register = () => {
                         <input
                             type="text"
                             name="phone"
+                            value={formData.phone}
                             onChange={handleChange}
                             className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                             required
@@ -75,6 +82,7 @@ const Register = () => {
                         <input
                             type="password"
                             name="password"
+                            value={formData.password}
                             onChange={handleChange}
                             className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                             required
