@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
-// Inisialisasi Supabase Client
-const supabase = createClient(
-    import.meta.env.VITE_SUPABASE_URL,
-    import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+// Ambil variabel environment
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+
+// Inisialisasi aman (hanya jika URL tersedia)
+const supabase = (supabaseUrl && supabaseAnonKey)
+    ? createClient(supabaseUrl, supabaseAnonKey)
+    : null;
 
 const VerifyEmail = () => {
     const [status, setStatus] = useState('verifying'); // 'verifying', 'success', 'error'
@@ -14,7 +17,15 @@ const VerifyEmail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Supabase otomatis menangani token dari URL hash (#access_token=...) saat komponen dimuat
+        // Cek jika Supabase client gagal terinisialisasi
+        if (!supabase) {
+            setStatus('error');
+            setErrorMessage('Konfigurasi Supabase belum terpasang di Vercel Environment Variables.');
+            return;
+        }
+
+        let authListenerSubscription = null;
+
         const handleEmailVerification = async () => {
             try {
                 const { data: { session }, error } = await supabase.auth.getSession();
@@ -23,12 +34,10 @@ const VerifyEmail = () => {
 
                 if (session) {
                     setStatus('success');
-                    // Redirect otomatis ke halaman login setelah 3 detik
                     setTimeout(() => {
                         navigate('/login');
                     }, 3000);
                 } else {
-                    // Jika tidak ada sesi otomatis, dengarkan perubahan Auth State
                     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
                         if (event === 'SIGNED_IN' || session) {
                             setStatus('success');
@@ -38,9 +47,7 @@ const VerifyEmail = () => {
                         }
                     });
 
-                    return () => {
-                        authListener.subscription.unsubscribe();
-                    };
+                    authListenerSubscription = authListener.subscription;
                 }
             } catch (err) {
                 setStatus('error');
@@ -49,6 +56,12 @@ const VerifyEmail = () => {
         };
 
         handleEmailVerification();
+
+        return () => {
+            if (authListenerSubscription) {
+                authListenerSubscription.unsubscribe();
+            }
+        };
     }, [navigate]);
 
     return (
@@ -68,7 +81,7 @@ const VerifyEmail = () => {
                             ✓
                         </div>
                         <h2 className="text-xl font-bold text-gray-800 mb-2">Email Berhasil Diverifikasi!</h2>
-                        <p className="text-gray-600 text-sm mb-4">Akun Haya Art Anda sudah aktif. Anda akan diarahakan ke halaman login...</p>
+                        <p className="text-gray-600 text-sm mb-4">Akun Haya Art Anda sudah aktif. Anda akan diarahkan ke halaman login...</p>
                         <button
                             onClick={() => navigate('/login')}
                             className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-6 rounded-lg transition"
