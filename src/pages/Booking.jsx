@@ -109,7 +109,7 @@ const Booking = () => {
                     <div className="bg-amber-50 p-4 rounded-md border border-amber-200 mt-4">
                         <p className="text-sm text-amber-800 flex justify-between">
                             <span>Total yang harus dibayar:</span>
-                            <span className="font-bold text-lg">Rp {parseInt(catalog.price).toLocaleString('id-ID')}</span>
+                            <span className="font-bold text-lg">Rp {parseInt(catalog.price || 0).toLocaleString('id-ID')}</span>
                         </p>
                     </div>
 
@@ -117,14 +117,14 @@ const Booking = () => {
                         <button
                             type="button"
                             onClick={() => navigate('/')}
-                            className="w-1/3 rounded-md border border-gray-300 bg-white py-2 font-bold text-gray-700 hover:bg-gray-50 transition"
+                            className="w-1/3 rounded-md border border-gray-300 bg-white py-2 font-bold text-gray-700 hover:bg-gray-50 transition cursor-pointer"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-2/3 rounded-md bg-amber-600 py-2 font-bold text-white hover:bg-amber-700 transition disabled:bg-gray-400"
+                            className="w-2/3 rounded-md bg-amber-600 py-2 font-bold text-white hover:bg-amber-700 transition disabled:bg-gray-400 cursor-pointer"
                         >
                             {loading ? 'Memproses...' : 'Kirim Pesanan'}
                         </button>
