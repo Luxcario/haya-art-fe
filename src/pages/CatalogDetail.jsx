@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import api from '../api/axios';
 
 const CatalogDetail = () => {
@@ -24,7 +24,7 @@ const CatalogDetail = () => {
     const [isMakeupChecked, setIsMakeupChecked] = useState(false);
     const [isHiburanChecked, setIsHiburanChecked] = useState(false);
 
-    // 2. Fetch Data
+    // Fetch Data & Auto-Restore Draft Pesanan
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) setUser(JSON.parse(storedUser));
@@ -37,6 +37,24 @@ const CatalogDetail = () => {
 
                 const bookedRes = await api.get('/booking/booked-dates');
                 setBookedDates(bookedRes.data || []);
+
+                // Cek apakah ada draft pesanan yang tersimpan dari sebelum login
+                const savedBooking = localStorage.getItem('pendingBookingData');
+                if (savedBooking) {
+                    const parsed = JSON.parse(savedBooking);
+                    // Pastikan draft cocok dengan catalog ID saat ini
+                    if (parsed.catalogId === id) {
+                        setLokasi(parsed.lokasi || "");
+                        setKelas(parsed.kelas || "");
+                        setStep(parsed.step || 3);
+                        setFormData(parsed.formData || { eventDate: '', location: '', note: '' });
+                        setIsMakeupChecked(parsed.isMakeupChecked || false);
+                        setIsHiburanChecked(parsed.isHiburanChecked || false);
+
+                        // Hapus dari localStorage setelah berhasil di-restore
+                        localStorage.removeItem('pendingBookingData');
+                    }
+                }
             } catch (error) {
                 console.error("Gagal mengambil detail:", error);
             } finally {
@@ -50,6 +68,7 @@ const CatalogDetail = () => {
         const [year, month, day] = dateStr.split('-');
         return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
     });
+
     const paketAktif = catalog?.prices?.find(
         (p) => p.lokasi === lokasi && p.paket === kelas
     );
@@ -61,8 +80,23 @@ const CatalogDetail = () => {
 
     const handlePesan = async (e) => {
         e.preventDefault();
+
+        // JIKA BELUM LOGIN: Simpan seluruh isi form & redirect ke Login
         if (!user) {
-            alert("Silakan Login terlebih dahulu untuk memesan!");
+            alert("Silakan Login terlebih dahulu untuk melanjutkan pemesanan!");
+
+            const bookingDraft = {
+                catalogId: id,
+                lokasi,
+                kelas,
+                step,
+                formData,
+                isMakeupChecked,
+                isHiburanChecked,
+                redirectUrl: window.location.pathname // Halaman catalog detail saat ini
+            };
+
+            localStorage.setItem('pendingBookingData', JSON.stringify(bookingDraft));
             navigate('/login');
             return;
         }
@@ -97,30 +131,29 @@ const CatalogDetail = () => {
             const waMessage =
                 `Halo Haya Art!
 
-                Saya ingin memesan dekorasi dengan detail berikut:
+Saya ingin memesan dekorasi dengan detail berikut:
 
-                *Kategori Acara:* ${catalog.category?.name || 'Spesial'}
-                - *Tema Dekorasi:* ${catalog.themeName}
-                - *Jenis Lokasi:* ${lokasi}
-                - *Kelas Paket:* ${kelas}
+*Kategori Acara:* ${catalog.category?.name || 'Spesial'}
+- *Tema Dekorasi:* ${catalog.themeName}
+- *Jenis Lokasi:* ${lokasi}
+- *Kelas Paket:* ${kelas}
 
-                *Rencana Acara*
-                - *Tanggal:* ${formData.eventDate}
-                - *Lokasi Lengkap:* ${formData.location}
+*Rencana Acara*
+- *Tanggal:* ${formData.eventDate}
+- *Lokasi Lengkap:* ${formData.location}
 
-                *Layanan Tambahan:*
-                ${layananTambahanText}
-                *Catatan Khusus:*
-                "${formData.note || '-'}"
+*Layanan Tambahan:*
+${layananTambahanText}
+*Catatan Khusus:*
+"${formData.note || '-'}"
 
-                *Total Estimasi:* Rp ${getFinalPrice().toLocaleString('id-ID')}
+*Total Estimasi:* Rp ${getFinalPrice().toLocaleString('id-ID')}
 
-                Mohon segera dikonfirmasi dan dicek jadwalnya ya, terima kasih! 🙏`;
+Mohon segera dikonfirmasi dan dicek jadwalnya ya, terima kasih! 🙏`;
 
             const waUrl = `https://wa.me/${activeAdminPhone}?text=${encodeURIComponent(waMessage)}`;
 
             alert("Pesanan berhasil dicatat! Mengalihkan ke WhatsApp...");
-
             window.location.href = waUrl;
 
         } catch (error) {
@@ -144,9 +177,7 @@ const CatalogDetail = () => {
             </div>
 
             <div className="max-w-5xl mx-auto px-6 mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-
                 <div className="lg:col-span-2 space-y-6">
-
                     <div className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
                         <div className="w-full h-80 md:h-[450px] bg-gray-200 rounded-xl overflow-hidden relative transition-all duration-500">
                             {mainImage ? (
@@ -175,7 +206,6 @@ const CatalogDetail = () => {
                         )}
                     </div>
 
-                    {/* Judul & Deskripsi Utama */}
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">{catalog.themeName}</h1>
                         <p className="text-gray-600 leading-relaxed">{catalog.description}</p>
@@ -259,7 +289,6 @@ const CatalogDetail = () => {
 
                 <div className="relative">
                     <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 sticky top-24 transition-all duration-500">
-
                         <div className="flex gap-2 mb-6">
                             <div className={`h-2 flex-1 rounded-full ${step >= 1 ? 'bg-amber-600' : 'bg-gray-200'}`}></div>
                             <div className={`h-2 flex-1 rounded-full ${step >= 2 ? 'bg-amber-600' : 'bg-gray-200'}`}></div>
@@ -380,10 +409,8 @@ const CatalogDetail = () => {
                                 </form>
                             </div>
                         )}
-
                     </div>
                 </div>
-
             </div>
         </div>
     );

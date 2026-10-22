@@ -26,7 +26,7 @@ const Register = () => {
             // Tampilkan pesan sukses berisi instruksi verifikasi email
             alert(res.data?.message || 'Registrasi Berhasil! Silakan cek inbox/spam email Anda untuk melakukan verifikasi.');
 
-            // Alihkan pengguna ke halaman login
+            // Alihkan pengguna ke halaman login (data pendingBookingData di localStorage tetap tersimpan)
             navigate('/login');
         } catch (err) {
             console.error(err);
@@ -40,6 +40,7 @@ const Register = () => {
         <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
             <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
                 <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">Daftar Akun Haya Art</h2>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Nama Lengkap</label>
@@ -92,7 +93,7 @@ const Register = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-md bg-amber-600 px-4 py-2 font-bold text-white transition hover:bg-amber-700 disabled:bg-gray-400"
+                        className="w-full rounded-md bg-amber-600 px-4 py-2 font-bold text-white transition hover:bg-amber-700 disabled:bg-gray-400 cursor-pointer"
                     >
                         {loading ? 'Memproses...' : 'Daftar Sekarang'}
                     </button>

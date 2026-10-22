@@ -24,6 +24,18 @@ const Login = () => {
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
             alert('Login Berhasil! Selamat Datang.');
+
+            // Cek apakah user datang dari pending booking form
+            const pendingBooking = localStorage.getItem('pendingBookingData');
+            if (pendingBooking) {
+                const parsed = JSON.parse(pendingBooking);
+                if (parsed.redirectUrl) {
+                    navigate(parsed.redirectUrl);
+                    return;
+                }
+            }
+
+            // Jika login biasa, arahkan ke Home
             navigate('/');
         } catch (err) {
             console.error(err);
